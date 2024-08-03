@@ -18,9 +18,22 @@ impl Config {
     }
 }
 
+fn wc_bytes(file_content: String) -> usize {
+    file_content.len()
+}
+
+fn wc_lines(file_content: String) -> usize {
+    file_content.lines().count()
+}
+
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file_content = fs::read_to_string(&config.file_path)?;
-    let file_len = file_content.len();
+
+    let file_len = match config.flag.as_str() {
+        "-c" => wc_bytes(file_content),
+        "-l" => wc_lines(file_content),
+        _ => 0,
+    };
 
     let file_wc = format!("{} {}", file_len, config.file_path);
     println!("{file_wc}");
