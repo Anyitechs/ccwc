@@ -18,20 +18,26 @@ impl Config {
     }
 }
 
-fn wc_bytes(file_content: String) -> usize {
+fn byte_count(file_content: String) -> usize {
     file_content.len()
 }
 
-fn wc_lines(file_content: String) -> usize {
+fn line_count(file_content: String) -> usize {
     file_content.lines().count()
+}
+
+fn word_count(file_content: String) -> usize {
+    let file: Vec<&str> = file_content.split_whitespace().collect();
+    file.len()
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let file_content = fs::read_to_string(&config.file_path)?;
 
     let file_len = match config.flag.as_str() {
-        "-c" => wc_bytes(file_content),
-        "-l" => wc_lines(file_content),
+        "-c" => byte_count(file_content),
+        "-l" => line_count(file_content),
+        "-w" => word_count(file_content),
         _ => 0,
     };
 
