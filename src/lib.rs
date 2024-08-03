@@ -27,8 +27,12 @@ fn line_count(file_content: String) -> usize {
 }
 
 fn word_count(file_content: String) -> usize {
-    let file: Vec<&str> = file_content.split_whitespace().collect();
-    file.len()
+    let file_content: Vec<&str> = file_content.split_whitespace().collect();
+    file_content.len()
+}
+
+fn character_count(file_content: String) -> usize {
+    file_content.chars().count()
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
@@ -38,6 +42,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
         "-c" => byte_count(file_content),
         "-l" => line_count(file_content),
         "-w" => word_count(file_content),
+        "-m" => character_count(file_content),
         _ => 0,
     };
 
