@@ -46,7 +46,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
         _ => 0,
     };
 
-    let file_wc = format!("{} {}", file_len, config.file_path);
-    println!("{file_wc}");
+    let file_len = format!("{} {}", file_len, config.file_path);
+    println!("{file_len}");
     Ok(())
 }
